@@ -1,0 +1,1831 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ayan Femme - Atriz, Modelo & Miss</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
+        
+        :root {
+            --gold: #D4AF37;
+            --champagne: #F7E7CE;
+            --dark: #0A0A0A;
+            --soft-gold: #E6C565;
+        }
+
+        * {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--dark);
+            color: white;
+            overflow-x: hidden;
+        }
+
+        .font-serif {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, var(--gold), var(--champagne));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .gold-border {
+            border: 2px solid var(--gold);
+        }
+
+        .hero-bg {
+            background: linear-gradient(135deg, rgba(0,0,0,0.8), rgba(212,175,55,0.1));
+        }
+
+        .card-hover {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .card-hover:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(212,175,55,0.3);
+        }
+
+        .parallax {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .section-divider {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            margin: 4rem 0;
+        }
+
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .gallery-item {
+            aspect-ratio: 3/4;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .gallery-item img {
+            transition: transform 0.5s ease;
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(212,175,55,0.8), rgba(0,0,0,0.6));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.9);
+        }
+
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            max-width: 90vw;
+            max-height: 90vh;
+        }
+
+        .modal img {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+        }
+
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: var(--gold);
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .nav-link {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: -100%;
+            width: 100%;
+            height: 2px;
+            background: var(--gold);
+            transition: left 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            left: 0;
+        }
+
+        .artistic-nav {
+            position: fixed;
+            right: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .nav-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(212,175,55,0.3);
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            position: relative;
+        }
+
+        .nav-dot.active {
+            background: var(--gold);
+            box-shadow: 0 0 20px rgba(212,175,55,0.6);
+            transform: scale(1.3);
+        }
+
+        .nav-dot:hover {
+            background: var(--gold);
+            transform: scale(1.2);
+        }
+
+        .nav-dot::before {
+            content: attr(data-section);
+            position: absolute;
+            right: 25px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.9);
+            color: var(--gold);
+            padding: 8px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            border: 1px solid var(--gold);
+        }
+
+        .nav-dot:hover::before {
+            opacity: 1;
+            visibility: visible;
+            right: 30px;
+        }
+
+        .floating-logo {
+            position: fixed;
+            top: 30px;
+            left: 30px;
+            z-index: 1000;
+            width: 80px;
+            height: 80px;
+            background: rgba(0,0,0,0.8);
+            border: 2px solid var(--gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(10px);
+            cursor: pointer;
+            transition: all 0.4s ease;
+        }
+
+        .floating-logo:hover {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 0 30px rgba(212,175,55,0.4);
+        }
+
+        .logo-bg {
+            width: 60px;
+            height: 60px;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><rect x="20" y="20" width="160" height="160" fill="none" stroke="%23D4AF37" stroke-width="3" rx="10"/><rect x="30" y="30" width="140" height="140" fill="none" stroke="%23D4AF37" stroke-width="2" rx="5"/><text x="100" y="110" text-anchor="middle" fill="%23D4AF37" font-family="serif" font-size="45" font-weight="bold">AF</text><text x="100" y="140" text-anchor="middle" fill="%23D4AF37" font-family="serif" font-size="12" letter-spacing="3">AYAN FEMME</text></svg>') center/contain no-repeat;
+        }
+
+        .hero-section {
+            height: 100vh;
+            min-height: 100vh;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .parallax-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 120%;
+            height: 120%;
+            background: linear-gradient(45deg, rgba(0,0,0,0.7), rgba(212,175,55,0.1));
+            transform: translateZ(0);
+        }
+
+        /* Enhanced button hover effects */
+        .hero-btn {
+            position: relative;
+            transform-style: preserve-3d;
+            transition: all 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .hero-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(212,175,55,0.4);
+        }
+
+        .hero-btn .btn-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--gold), var(--soft-gold));
+            border-radius: inherit;
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            z-index: -1;
+        }
+
+        .hero-btn:hover .btn-bg {
+            transform: scaleX(1);
+        }
+
+        .hero-btn:hover .btn-text {
+            color: black;
+        }
+
+        /* Sophisticated scroll indicator */
+        .scroll-indicator {
+            animation: float-gentle 3s ease-in-out infinite;
+        }
+
+        @keyframes float-gentle {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Refined floating portraits */
+        .floating-portrait {
+            backdrop-filter: blur(2px);
+            border: 2px solid rgba(212,175,55,0.3);
+            transition: all 0.8s ease;
+        }
+
+        .floating-portrait:hover {
+            border-color: rgba(212,175,55,0.8);
+            transform: scale(1.1);
+        }
+
+        /* Typography enhancements */
+        .hero-title {
+            text-shadow: 0 0 30px rgba(212,175,55,0.3);
+            letter-spacing: -0.02em;
+        }
+
+        .hero-subtitle {
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+            letter-spacing: 0.05em;
+        }
+
+        .floating-elements {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .floating-element {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--gold);
+            border-radius: 50%;
+            opacity: 0.6;
+            animation: float-random 12s infinite ease-in-out;
+        }
+
+        @keyframes float-random {
+            0%, 100% { transform: translateY(0px) translateX(0px); opacity: 0.6; }
+            25% { transform: translateY(-20px) translateX(10px); opacity: 1; }
+            50% { transform: translateY(-10px) translateX(-15px); opacity: 0.8; }
+            75% { transform: translateY(-30px) translateX(5px); opacity: 0.9; }
+        }
+
+        .organic-shape {
+            position: absolute;
+            background: linear-gradient(45deg, rgba(212,175,55,0.1), rgba(212,175,55,0.05));
+            border-radius: 50% 30% 70% 40%;
+            animation: morph 20s infinite ease-in-out;
+        }
+
+        @keyframes morph {
+            0%, 100% { border-radius: 50% 30% 70% 40%; transform: rotate(0deg); }
+            25% { border-radius: 30% 70% 50% 60%; transform: rotate(90deg); }
+            50% { border-radius: 70% 40% 30% 50%; transform: rotate(180deg); }
+            75% { border-radius: 40% 60% 50% 30%; transform: rotate(270deg); }
+        }
+
+        .content-section {
+            min-height: 80vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            padding: 60px 0;
+        }
+
+        .hero-section {
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Seamless section transitions */
+        .seamless-transition {
+            position: relative;
+            z-index: 2;
+            background: linear-gradient(to bottom, 
+                transparent 0%, 
+                rgba(10,10,10,0.3) 20%, 
+                rgba(10,10,10,0.8) 60%, 
+                var(--dark) 100%);
+            margin-top: 0;
+            padding-top: 100px;
+        }
+
+        .section-overlap {
+            position: relative;
+            z-index: 3;
+            background: var(--dark);
+            border-radius: 30px 30px 0 0;
+            margin-top: -50px;
+            box-shadow: 0 -20px 40px rgba(0,0,0,0.3);
+        }
+
+        /* Enhanced artist presence */
+        .artist-showcase {
+            position: absolute;
+            right: 5%;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 35%;
+            height: 85vh;
+            z-index: 5;
+        }
+
+        .main-portrait {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            border-radius: 12px;
+            overflow: hidden;
+            background: transparent;
+            backdrop-filter: none;
+            border: none;
+        }
+
+        .main-portrait img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            transition: opacity 0.8s ease-in-out;
+            opacity: 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+            mask: 
+                radial-gradient(ellipse 100% 60% at center, 
+                    rgba(0,0,0,1) 25%,
+                    rgba(0,0,0,0.95) 35%,
+                    rgba(0,0,0,0.8) 50%,
+                    rgba(0,0,0,0.6) 65%,
+                    rgba(0,0,0,0.3) 80%,
+                    rgba(0,0,0,0.1) 90%,
+                    rgba(0,0,0,0) 100%),
+                linear-gradient(to bottom,
+                    rgba(0,0,0,0) 0%,
+                    rgba(0,0,0,0.2) 5%,
+                    rgba(0,0,0,0.6) 15%,
+                    rgba(0,0,0,1) 25%,
+                    rgba(0,0,0,1) 75%,
+                    rgba(0,0,0,0.6) 85%,
+                    rgba(0,0,0,0.2) 95%,
+                    rgba(0,0,0,0) 100%);
+            -webkit-mask: 
+                radial-gradient(ellipse 100% 60% at center, 
+                    rgba(0,0,0,1) 25%,
+                    rgba(0,0,0,0.95) 35%,
+                    rgba(0,0,0,0.8) 50%,
+                    rgba(0,0,0,0.6) 65%,
+                    rgba(0,0,0,0.3) 80%,
+                    rgba(0,0,0,0.1) 90%,
+                    rgba(0,0,0,0) 100%),
+                linear-gradient(to bottom,
+                    rgba(0,0,0,0) 0%,
+                    rgba(0,0,0,0.2) 5%,
+                    rgba(0,0,0,0.6) 15%,
+                    rgba(0,0,0,1) 25%,
+                    rgba(0,0,0,1) 75%,
+                    rgba(0,0,0,0.6) 85%,
+                    rgba(0,0,0,0.2) 95%,
+                    rgba(0,0,0,0) 100%);
+            mask-composite: intersect;
+            -webkit-mask-composite: source-in;
+        }
+
+        .main-portrait img.active {
+            opacity: 1;
+            z-index: 2;
+        }
+
+        .main-portrait:hover img.active {
+            transform: scale(1.02);
+        }
+
+        /* Circular fade effect overlay - REMOVIDO */
+        .portrait-fade {
+            display: none;
+        }
+
+        .portrait-glow {
+            position: absolute;
+            inset: -20px;
+            background: radial-gradient(circle at center, 
+                rgba(212,175,55,0.15) 0%, 
+                rgba(212,175,55,0.1) 30%,
+                rgba(212,175,55,0.05) 60%,
+                transparent 80%);
+            border-radius: 12px;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+
+        .main-portrait:hover .portrait-glow {
+            opacity: 1;
+        }
+
+        /* Carousel indicators - removidos */
+        .carousel-indicators {
+            display: none;
+        }
+
+        /* Enhanced artist signature */
+        .artist-signature {
+            position: absolute;
+            bottom: 60px;
+            left: 30px;
+            right: 30px;
+            z-index: 5;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s ease;
+        }
+
+        .main-portrait:hover .artist-signature {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .signature-card {
+            backdrop-filter: blur(10px);
+            background: linear-gradient(135deg, 
+                rgba(0,0,0,0.3), 
+                rgba(212,175,55,0.1));
+            border: 1px solid rgba(212,175,55,0.3);
+            border-radius: 15px;
+            padding: 20px;
+        }
+
+        /* Content positioning */
+        .hero-content {
+            position: absolute;
+            left: 5%;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50%;
+            z-index: 6;
+        }
+
+        /* Scroll indicator enhancement */
+        .scroll-prompt {
+            position: absolute;
+            bottom: -80px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            z-index: 10;
+            animation: pulse-glow 2s infinite;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { 
+                opacity: 0.7; 
+                transform: translateX(-50%) scale(1);
+            }
+            50% { 
+                opacity: 1; 
+                transform: translateX(-50%) scale(1.1);
+            }
+        }
+
+        .scroll-text {
+            font-size: 0.9rem;
+            color: var(--gold);
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+            font-weight: 500;
+        }
+
+        /* Floating elements enhancement */
+        .elegant-float {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(212,175,55,0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(212,175,55,0.2);
+            animation: elegant-floating 8s ease-in-out infinite;
+        }
+
+        @keyframes elegant-floating {
+            0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.4; }
+            33% { transform: translateY(-30px) rotate(120deg); opacity: 0.8; }
+            66% { transform: translateY(-15px) rotate(240deg); opacity: 0.6; }
+        }
+
+        /* Mobile responsiveness for new layout */
+        @media (max-width: 1024px) {
+            .artist-showcase {
+                right: 2%;
+                width: 45%;
+                height: 75vh;
+            }
+            
+            .hero-content {
+                left: 2%;
+                width: 50%;
+            }
+        }
+
+        /* Compact spacing */
+        .compact-spacing {
+            margin-bottom: 3rem;
+        }
+
+        .section-compact {
+            padding: 50px 0;
+        }
+
+        .magnetic-hover:hover {
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: 0 20px 40px rgba(212,175,55,0.4);
+        }
+
+        /* Streamlined gallery */
+        .gallery-compact {
+            columns: 4;
+            column-gap: 15px;
+        }
+
+        /* Enhanced magnetic hover effects */
+        .magnetic-hover {
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .masonry-item {
+            break-inside: avoid;
+            margin-bottom: 15px;
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        /* Quick reveal animations */
+        .quick-reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .quick-reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Compact typography */
+        .hero-title-compact {
+            text-shadow: 0 0 20px rgba(212,175,55,0.3);
+            letter-spacing: -0.03em;
+            line-height: 0.9;
+        }
+
+        /* Streamlined buttons */
+        .btn-compact {
+            padding: 12px 24px;
+            font-size: 16px;
+            min-width: 160px;
+        }
+
+        /* Reduced section dividers */
+        .divider-compact {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            margin: 2rem 0;
+            opacity: 0.6;
+        }
+
+        .reveal-text {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .reveal-text.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .artistic-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            position: relative;
+        }
+
+        .gallery-masonry {
+            columns: 3;
+            column-gap: 20px;
+            break-inside: avoid;
+        }
+
+        .masonry-item {
+            break-inside: avoid;
+            margin-bottom: 20px;
+            border-radius: 15px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.4s ease;
+        }
+
+        .masonry-item:hover {
+            transform: scale(1.02);
+            box-shadow: 0 20px 40px rgba(212,175,55,0.3);
+        }
+
+        .interactive-cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            background: var(--gold);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0;
+            transform: translate(-50%, -50%);
+            transition: all 0.1s ease;
+        }
+
+        .cursor-active {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1.5);
+        }
+
+        @media (max-width: 768px) {
+            .artistic-nav {
+                right: 10px;
+                gap: 12px;
+                position: fixed;
+                top: 50%;
+                transform: translateY(-50%);
+                z-index: 1000;
+            }
+            
+            .nav-dot {
+                width: 10px;
+                height: 10px;
+            }
+            
+            .floating-logo {
+                width: 60px;
+                height: 60px;
+                top: 20px;
+                left: 20px;
+            }
+            
+            .logo-bg {
+                width: 40px;
+                height: 40px;
+            }
+            
+            .gallery-compact {
+                columns: 2;
+            }
+
+            .hero-title-compact {
+                font-size: 3.5rem;
+            }
+
+            .section-compact {
+                padding: 40px 0;
+            }
+
+            .compact-spacing {
+                margin-bottom: 2rem;
+            }
+
+            /* Mobile hero layout */
+            .artist-showcase {
+                position: relative;
+                right: auto;
+                top: auto;
+                transform: none;
+                width: 100%;
+                height: 50vh;
+                margin-bottom: 2rem;
+            }
+            
+            .hero-content {
+                position: relative;
+                left: auto;
+                top: auto;
+                transform: none;
+                width: 100%;
+                text-align: center;
+                padding: 0 1rem;
+            }
+
+            .hero-section {
+                padding: 2rem 0;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                min-height: 100vh;
+            }
+
+            /* Scroll prompt mobile - movido para dentro da viewport */
+            .scroll-prompt {
+                bottom: 20px;
+                position: absolute;
+            }
+
+            .artist-signature {
+                bottom: 40px;
+                left: 15px;
+                right: 15px;
+            }
+
+            .signature-card {
+                padding: 15px;
+            }
+
+            .carousel-indicators {
+                bottom: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .gallery-compact {
+                columns: 1;
+            }
+
+            .hero-title-compact {
+                font-size: 3rem;
+            }
+
+            .btn-compact {
+                padding: 10px 20px;
+                font-size: 14px;
+                min-width: 140px;
+            }
+
+            .artist-showcase {
+                height: 40vh;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Interactive Cursor -->
+    <div class="interactive-cursor" id="cursor"></div>
+
+    <!-- Floating Logo -->
+    <div class="floating-logo floating" onclick="scrollToTop()">
+        <div class="logo-bg"></div>
+    </div>
+
+    <!-- Artistic Navigation -->
+    <div class="artistic-nav">
+        <div class="nav-dot active" data-section="Início" onclick="scrollToSection('home')"></div>
+        <div class="nav-dot" data-section="Sobre" onclick="scrollToSection('about')"></div>
+        <div class="nav-dot" data-section="Arte" onclick="scrollToSection('portfolio')"></div>
+        <div class="nav-dot" data-section="Conquistas" onclick="scrollToSection('achievements')"></div>
+        <div class="nav-dot" data-section="Contato" onclick="scrollToSection('contact')"></div>
+    </div>
+
+    <!-- Floating Background Elements -->
+    <div class="floating-elements">
+        <div class="floating-element" style="top: 20%; left: 10%; animation-delay: 0s;"></div>
+        <div class="floating-element" style="top: 60%; left: 80%; animation-delay: 2s;"></div>
+        <div class="floating-element" style="top: 80%; left: 20%; animation-delay: 4s;"></div>
+        <div class="floating-element" style="top: 30%; left: 90%; animation-delay: 6s;"></div>
+        <div class="floating-element" style="top: 70%; left: 5%; animation-delay: 1s;"></div>
+        <div class="floating-element" style="top: 40%; left: 70%; animation-delay: 3s;"></div>
+        <div class="floating-element" style="top: 10%; left: 60%; animation-delay: 5s;"></div>
+        <div class="floating-element" style="top: 90%; left: 40%; animation-delay: 7s;"></div>
+    </div>
+
+    <!-- Organic Shapes -->
+    <div class="organic-shape" style="top: 10%; right: 5%; width: 300px; height: 200px; animation-delay: 0s;"></div>
+    <div class="organic-shape" style="bottom: 20%; left: 10%; width: 250px; height: 300px; animation-delay: 10s;"></div>
+    <div class="organic-shape" style="top: 50%; left: 50%; width: 150px; height: 150px; animation-delay: 5s; opacity: 0.3;"></div>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-section">
+        <div class="parallax-bg"></div>
+        
+        <!-- Elegant Floating Elements -->
+        <div class="elegant-float" style="top: 15%; left: 10%; width: 80px; height: 80px; animation-delay: 0s;"></div>
+        <div class="elegant-float" style="top: 70%; left: 15%; width: 60px; height: 60px; animation-delay: 3s;"></div>
+        <div class="elegant-float" style="top: 25%; right: 15%; width: 100px; height: 100px; animation-delay: 6s;"></div>
+        <div class="elegant-float" style="bottom: 30%; right: 8%; width: 70px; height: 70px; animation-delay: 2s;"></div>
+        
+        <!-- Main Artist Showcase -->
+        <div class="artist-showcase">
+            <div class="main-portrait">
+                <div class="portrait-glow"></div>
+                
+                <!-- Carousel Images -->
+                <img src="ayan/504237957_17868935910383728_3950349661006692893_n.jpg" alt="Ayan Femme" class="carousel-image active">
+                <img src="ayan/503345126_17868249198383728_4510784538654881099_n..jpg" alt="Ayan Femme" class="carousel-image">
+                <img src="ayan/510981689_17871917880383728_2569192965226417955_n..jpg" alt="Ayan Femme" class="carousel-image">
+                <img src="ayan/517419120_17872945821383728_4259484748891299183_n..jpg" alt="Ayan Femme" class="carousel-image">
+                
+                <!-- Fluid fade overlay -->
+                <div class="portrait-fade"></div>
+                
+                <!-- Enhanced Artist signature overlay -->
+                <div class="artist-signature">
+                    <div class="signature-card">
+                        <p class="text-gold text-sm font-light tracking-wide mb-2">Atriz • Modelo • Miss</p>
+                        <p class="text-white/90 text-xs leading-relaxed">
+                            "A arte é a expressão mais pura da alma, onde cada movimento conta uma história única."
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Carousel Indicators -->
+                <div class="carousel-indicators">
+                    <div class="carousel-dot active" data-slide="0"></div>
+                    <div class="carousel-dot" data-slide="1"></div>
+                    <div class="carousel-dot" data-slide="2"></div>
+                    <div class="carousel-dot" data-slide="3"></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Hero Content -->
+        <div class="hero-content">
+            <div class="quick-reveal">
+                <h1 class="hero-title-compact font-serif text-5xl md:text-7xl font-bold mb-6 leading-tight">
+                    <span class="gradient-text block">Ayan</span>
+                    <span class="text-white block">Femme</span>
+                </h1>
+                
+                <div class="space-y-6 mb-10">
+                    <p class="hero-subtitle text-lg md:text-xl text-gray-300 font-light tracking-wide">
+                        Arte, Elegância & Expressão
+                    </p>
+                    <div class="w-16 h-0.5 bg-gradient-to-r from-gold to-champagne"></div>
+                    <p class="text-gray-400 leading-relaxed">
+                        Uma jornada artística onde cada performance é uma obra de arte, cada pose uma história, cada momento uma celebração da beleza autêntica.
+                    </p>
+                </div>
+                
+                <!-- Action Buttons -->
+                <div class="flex flex-col gap-4">
+                    <button onclick="scrollToSection('portfolio')" class="hero-btn btn-compact group gold-border rounded-full inline-flex items-center gap-3 justify-start w-fit">
+                        <div class="btn-bg"></div>
+                        <span class="btn-text relative z-10 flex items-center gap-3 transition-colors duration-300">
+                            <i class="fas fa-palette group-hover:rotate-12 transition-transform duration-300"></i>
+                            Explorar Portfolio
+                        </span>
+                    </button>
+                    
+                    <button onclick="scrollToSection('contact')" class="hero-btn btn-compact bg-yellow-400 text-black rounded-full inline-flex items-center gap-3 justify-start w-fit hover:bg-yellow-500">
+                        <i class="fas fa-star"></i>
+                        Trabalhar Juntos
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Enhanced Scroll Prompt -->
+        <div class="scroll-prompt">
+            <div class="scroll-indicator">
+                <i class="fas fa-chevron-down text-gold text-3xl"></i>
+            </div>
+            <div class="w-1 h-16 bg-gradient-to-b from-gold to-transparent mx-auto mt-4 opacity-60"></div>
+            <div class="scroll-dots flex justify-center gap-1 mt-3">
+                <div class="w-1 h-1 bg-gold rounded-full opacity-40"></div>
+                <div class="w-1 h-1 bg-gold rounded-full opacity-60"></div>
+                <div class="w-1 h-1 bg-gold rounded-full opacity-80"></div>
+            </div>
+        </div>
+        
+        <!-- Ambient Floating Elements (only dots) -->
+        <div class="absolute inset-0 pointer-events-none opacity-30">
+            <div class="floating-element" style="top: 15%; left: 25%; animation-delay: 1s;"></div>
+            <div class="floating-element" style="top: 70%; left: 20%; animation-delay: 3s;"></div>
+            <div class="floating-element" style="top: 40%; left: 80%; animation-delay: 5s;"></div>
+            <div class="floating-element" style="top: 85%; left: 75%; animation-delay: 7s;"></div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="seamless-transition section-compact bg-gray-900/30">
+        <div class="section-overlap">
+            <div class="container mx-auto px-6 pt-16">
+                <div class="text-center compact-spacing quick-reveal">
+                    <h2 class="font-serif text-4xl md:text-5xl font-bold mb-6">
+                        <span class="gradient-text">Essência Artística</span>
+                    </h2>
+                    <p class="text-lg text-gray-300 max-w-2xl mx-auto leading-relaxed">
+                        Uma jornada onde cada passo é uma dança, cada olhar uma história.
+                    </p>
+                </div>
+                
+                <div class="grid md:grid-cols-2 gap-8 items-center">
+                    <div class="quick-reveal">
+                        <div class="relative group">
+                            <div class="gallery-item rounded-2xl overflow-hidden magnetic-hover">
+                                <img src="ayan/503345126_17868249198383728_4510784538654881099_n..jpg" alt="Ayan Femme Arte" class="w-full aspect-[3/4] object-cover">
+                                <div class="gallery-overlay">
+                                    <div class="text-center">
+                                        <i class="fas fa-heart text-white text-3xl mb-2"></i>
+                                        <p class="text-white">Alma Artística</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="quick-reveal space-y-8">
+                        <div class="space-y-4">
+                            <h3 class="text-2xl font-serif gradient-text">A Arte de Ser</h3>
+                            <p class="text-gray-300 leading-relaxed">
+                                Cada performance é uma extensão da alma, onde a paixão se materializa em movimento e presença magnética.
+                            </p>
+                        </div>
+                        
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="group cursor-pointer">
+                                <div class="text-center p-6 bg-gradient-to-br from-black/60 to-gray-900/40 rounded-xl backdrop-blur-sm border border-yellow-400/20 hover:border-yellow-400/60 magnetic-hover">
+                                    <div class="w-12 h-12 mx-auto mb-3 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-full flex items-center justify-center">
+                                        <i class="fas fa-theater-masks text-lg text-black"></i>
+                                    </div>
+                                    <h4 class="font-semibold text-white mb-2">Performance</h4>
+                                    <p class="text-xs text-gray-400">Autenticidade em cada gesto</p>
+                                </div>
+                            </div>
+                            
+                            <div class="group cursor-pointer">
+                                <div class="text-center p-6 bg-gradient-to-br from-black/60 to-gray-900/40 rounded-xl backdrop-blur-sm border border-yellow-400/20 hover:border-yellow-400/60 magnetic-hover">
+                                    <div class="w-12 h-12 mx-auto mb-3 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-full flex items-center justify-center">
+                                        <i class="fas fa-camera-retro text-lg text-black"></i>
+                                    </div>
+                                    <h4 class="font-semibold text-white mb-2">Expressão</h4>
+                                    <p class="text-xs text-gray-400">Cada imagem conta uma história</p>
+                                </div>
+                            </div>
+                            
+                            <div class="group cursor-pointer">
+                                <div class="text-center p-6 bg-gradient-to-br from-black/60 to-gray-900/40 rounded-xl backdrop-blur-sm border border-yellow-400/20 hover:border-yellow-400/60 magnetic-hover">
+                                    <div class="w-12 h-12 mx-auto mb-3 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-full flex items-center justify-center">
+                                        <i class="fas fa-crown text-lg text-black"></i>
+                                    </div>
+                                    <h4 class="font-semibold text-white mb-2">Elegância</h4>
+                                    <p class="text-xs text-gray-400">Presença que inspira</p>
+                                </div>
+                            </div>
+                            
+                            <div class="group cursor-pointer">
+                                <div class="text-center p-6 bg-gradient-to-br from-black/60 to-gray-900/40 rounded-xl backdrop-blur-sm border border-yellow-400/20 hover:border-yellow-400/60 magnetic-hover">
+                                    <div class="w-12 h-12 mx-auto mb-3 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-full flex items-center justify-center">
+                                        <i class="fas fa-magic text-lg text-black"></i>
+                                    </div>
+                                    <h4 class="font-semibold text-white mb-2">Magia</h4>
+                                    <p class="text-xs text-gray-400">Transformando momentos</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="section-compact">
+        <div class="container mx-auto px-6">
+            <div class="text-center compact-spacing quick-reveal">
+                <h2 class="font-serif text-4xl md:text-5xl font-bold mb-6">
+                    <span class="gradient-text">Galeria de Momentos</span>
+                </h2>
+                <p class="text-lg text-gray-300 max-w-2xl mx-auto leading-relaxed">
+                    Cada imagem é uma janela para a alma, uma captura da essência que transcende o visual.
+                </p>
+            </div>
+
+            <!-- Compact Artistic Filters -->
+            <div class="flex flex-wrap justify-center gap-4 mb-12 quick-reveal">
+                <button class="filter-btn active group relative overflow-hidden px-6 py-2 rounded-full gold-border transition-all duration-500" data-filter="all">
+                    <span class="relative z-10 text-sm">Toda Arte</span>
+                    <div class="absolute inset-0 bg-yellow-400 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
+                </button>
+                <button class="filter-btn group relative overflow-hidden px-6 py-2 rounded-full gold-border transition-all duration-500" data-filter="photoshoot">
+                    <span class="relative z-10 text-sm">Ensaios</span>
+                    <div class="absolute inset-0 bg-yellow-400 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
+                </button>
+                <button class="filter-btn group relative overflow-hidden px-6 py-2 rounded-full gold-border transition-all duration-500" data-filter="events">
+                    <span class="relative z-10 text-sm">Eventos</span>
+                    <div class="absolute inset-0 bg-yellow-400 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
+                </button>
+                <button class="filter-btn group relative overflow-hidden px-6 py-2 rounded-full gold-border transition-all duration-500" data-filter="carnival">
+                    <span class="relative z-10 text-sm">Carnaval</span>
+                    <div class="absolute inset-0 bg-yellow-400 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
+                </button>
+            </div>
+
+            <!-- Compact Masonry Portfolio Grid -->
+            <div class="gallery-compact quick-reveal" id="portfolioGrid">
+                <div class="portfolio-item masonry-item" data-category="photoshoot">
+                    <div class="gallery-item bg-gray-800 group">
+                        <img src="ayan/476720191_17853772719383728_4964623158776344159_n..jpg" alt="Ensaio Artístico" loading="lazy">
+                        <div class="gallery-overlay">
+                            <div class="text-center transform group-hover:scale-110 transition-transform duration-300">
+                                <i class="fas fa-expand text-white text-2xl mb-2"></i>
+                                <p class="text-white text-sm">Explorar</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="portfolio-item masonry-item" data-category="events">
+                    <div class="gallery-item bg-gray-800 group">
+                        <img src="ayan/476724576_17853772650383728_2300806370447709110_n..jpg" alt="Momento Especial" loading="lazy">
+                        <div class="gallery-overlay">
+                            <div class="text-center transform group-hover:scale-110 transition-transform duration-300">
+                                <i class="fas fa-expand text-white text-2xl mb-2"></i>
+                                <p class="text-white text-sm">Descobrir</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="portfolio-item masonry-item" data-category="photoshoot">
+                    <div class="gallery-item bg-gray-800 group">
+                        <img src="ayan/501077173_17867510304383728_5019026713525901171_n..jpg" alt="Expressão Única" loading="lazy">
+                        <div class="gallery-overlay">
+                            <div class="text-center transform group-hover:scale-110 transition-transform duration-300">
+                                <i class="fas fa-expand text-white text-2xl mb-2"></i>
+                                <p class="text-white text-sm">Contemplar</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="portfolio-item masonry-item" data-category="carnival">
+                    <div class="gallery-item bg-gray-800 group">
+                        <img src="ayan/501772713_17867749317383728_7366469640440312531_n..jpg" alt="Energia do Carnaval" loading="lazy">
+                        <div class="gallery-overlay">
+                            <div class="text-center transform group-hover:scale-110 transition-transform duration-300">
+                                <i class="fas fa-expand text-white text-2xl mb-2"></i>
+                                <p class="text-white text-sm">Sentir</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="portfolio-item masonry-item" data-category="events">
+                    <div class="gallery-item bg-gray-800 group">
+                        <img src="ayan/502713937_17867865951383728_8330221499465538275_n..jpg" alt="Elegância Pura" loading="lazy">
+                        <div class="gallery-overlay">
+                            <div class="text-center transform group-hover:scale-110 transition-transform duration-300">
+                                <i class="fas fa-expand text-white text-2xl mb-2"></i>
+                                <p class="text-white text-sm">Admirar</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="portfolio-item masonry-item" data-category="photoshoot">
+                    <div class="gallery-item bg-gray-800 group">
+                        <img src="ayan/503108485_17868144084383728_5365610978801716856_n..jpg" alt="Arte Editorial" loading="lazy">
+                        <div class="gallery-overlay">
+                            <div class="text-center transform group-hover:scale-110 transition-transform duration-300">
+                                <i class="fas fa-expand text-white text-2xl mb-2"></i>
+                                <p class="text-white text-sm">Vivenciar</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="portfolio-item masonry-item" data-category="carnival">
+                    <div class="gallery-item bg-gray-800 group">
+                        <img src="ayan/503678334_17870670147383728_7793780535594132963_n..jpg" alt="Cultura Brasileira" loading="lazy">
+                        <div class="gallery-overlay">
+                            <div class="text-center transform group-hover:scale-110 transition-transform duration-300">
+                                <i class="fas fa-expand text-white text-2xl mb-2"></i>
+                                <p class="text-white text-sm">Celebrar</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="portfolio-item masonry-item" data-category="photoshoot">
+                    <div class="gallery-item bg-gray-800 group">
+                        <img src="ayan/504193727_17868642945383728_5432801695476628991_n..jpg" alt="Retrato Íntimo" loading="lazy">
+                        <div class="gallery-overlay">
+                            <div class="text-center transform group-hover:scale-110 transition-transform duration-300">
+                                <i class="fas fa-expand text-white text-2xl mb-2"></i>
+                                <p class="text-white text-sm">Conectar</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="portfolio-item masonry-item" data-category="events">
+                    <div class="gallery-item bg-gray-800 group">
+                        <img src="ayan/504281652_17869290774383728_7912572843247584970_n..jpg" alt="Noite de Gala" loading="lazy">
+                        <div class="gallery-overlay">
+                            <div class="text-center transform group-hover:scale-110 transition-transform duration-300">
+                                <i class="fas fa-expand text-white text-2xl mb-2"></i>
+                                <p class="text-white text-sm">Brilhar</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="portfolio-item masonry-item" data-category="photoshoot">
+                    <div class="gallery-item bg-gray-800 group">
+                        <img src="ayan/504432418_17869066215383728_4655632892425258382_n..jpg" alt="Moda Conceitual" loading="lazy">
+                        <div class="gallery-overlay">
+                            <div class="text-center transform group-hover:scale-110 transition-transform duration-300">
+                                <i class="fas fa-expand text-white text-2xl mb-2"></i>
+                                <p class="text-white text-sm">Inspirar</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="portfolio-item masonry-item" data-category="carnival">
+                    <div class="gallery-item bg-gray-800 group">
+                        <img src="ayan/504453701_17869412289383728_8194638573887636494_n..jpg" alt="Desfile Majestoso" loading="lazy">
+                        <div class="gallery-overlay">
+                            <div class="text-center transform group-hover:scale-110 transition-transform duration-300">
+                                <i class="fas fa-expand text-white text-2xl mb-2"></i>
+                                <p class="text-white text-sm">Encantar</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="portfolio-item masonry-item" data-category="photoshoot">
+                    <div class="gallery-item bg-gray-800 group">
+                        <img src="ayan/504514483_17868936840383728_4054397939006320629_n..jpg" alt="Sessão de Estúdio" loading="lazy">
+                        <div class="gallery-overlay">
+                            <div class="text-center transform group-hover:scale-110 transition-transform duration-300">
+                                <i class="fas fa-expand text-white text-2xl mb-2"></i>
+                                <p class="text-white text-sm">Criar</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="portfolio-item masonry-item" data-category="events">
+                    <div class="gallery-item bg-gray-800 group">
+                        <img src="ayan/505141027_17869547868383728_8550221129943345049_n..jpg" alt="Tapete Vermelho" loading="lazy">
+                        <div class="gallery-overlay">
+                            <div class="text-center transform group-hover:scale-110 transition-transform duration-300">
+                                <i class="fas fa-expand text-white text-2xl mb-2"></i>
+                                <p class="text-white text-sm">Deslumbrar</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="portfolio-item masonry-item" data-category="photoshoot">
+                    <div class="gallery-item bg-gray-800 group">
+                        <img src="ayan/505172788_17869673199383728_5820308597216603688_n..jpg" alt="Estilo de Vida" loading="lazy">
+                        <div class="gallery-overlay">
+                            <div class="text-center transform group-hover:scale-110 transition-transform duration-300">
+                                <i class="fas fa-expand text-white text-2xl mb-2"></i>
+                                <p class="text-white text-sm">Viver</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="portfolio-item masonry-item" data-category="events">
+                    <div class="gallery-item bg-gray-800 group">
+                        <img src="ayan/508390963_17870201892383728_8358317066623957296_n..jpg" alt="Cerimônia de Premiação" loading="lazy">
+                        <div class="gallery-overlay">
+                            <div class="text-center transform group-hover:scale-110 transition-transform duration-300">
+                                <i class="fas fa-expand text-white text-2xl mb-2"></i>
+                                <p class="text-white text-sm">Conquistar</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="portfolio-item masonry-item" data-category="carnival">
+                    <div class="gallery-item bg-gray-800 group">
+                        <img src="ayan/509005275_17870320245383728_2408263867483657642_n..jpg" alt="Fantasia Deslumbrante" loading="lazy">
+                        <div class="gallery-overlay">
+                            <div class="text-center transform group-hover:scale-110 transition-transform duration-300">
+                                <i class="fas fa-expand text-white text-2xl mb-2"></i>
+                                <p class="text-white text-sm">Fascinar</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Achievements Section -->
+    <section id="achievements" class="section-compact bg-gray-900/50">
+        <div class="container mx-auto px-6">
+            <div class="divider-compact"></div>
+            <div class="text-center compact-spacing quick-reveal">
+                <h2 class="font-serif text-4xl md:text-5xl font-bold mb-6">
+                    <span class="gradient-text">Conquistas</span>
+                </h2>
+                <p class="text-lg text-gray-300 max-w-2xl mx-auto">
+                    Marcos importantes de uma carreira dedicada à excelência artística.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="bg-black/50 p-6 rounded-xl magnetic-hover quick-reveal">
+                    <div class="text-center">
+                        <i class="fas fa-trophy text-4xl text-yellow-400 mb-4"></i>
+                        <h3 class="text-lg font-semibold mb-3 gradient-text">Miss Regional</h3>
+                        <p class="text-gray-300 text-sm">Títulos conquistados representando nossa cultura.</p>
+                    </div>
+                </div>
+
+                <div class="bg-black/50 p-6 rounded-xl magnetic-hover quick-reveal">
+                    <div class="text-center">
+                        <i class="fas fa-crown text-4xl text-yellow-400 mb-4"></i>
+                        <h3 class="text-lg font-semibold mb-3 gradient-text">Rainha de Escola</h3>
+                        <p class="text-gray-300 text-sm">Honra de representar tradicionais escolas de samba.</p>
+                    </div>
+                </div>
+
+                <div class="bg-black/50 p-6 rounded-xl magnetic-hover quick-reveal">
+                    <div class="text-center">
+                        <i class="fas fa-star text-4xl text-yellow-400 mb-4"></i>
+                        <h3 class="text-lg font-semibold mb-3 gradient-text">Campanhas</h3>
+                        <p class="text-gray-300 text-sm">Participação em campanhas de marcas renomadas.</p>
+                    </div>
+                </div>
+
+                <div class="bg-black/50 p-6 rounded-xl magnetic-hover quick-reveal">
+                    <div class="text-center">
+                        <i class="fas fa-film text-4xl text-yellow-400 mb-4"></i>
+                        <h3 class="text-lg font-semibold mb-3 gradient-text">Audiovisual</h3>
+                        <p class="text-gray-300 text-sm">Atuação em projetos cinematográficos.</p>
+                    </div>
+                </div>
+
+                <div class="bg-black/50 p-6 rounded-xl magnetic-hover quick-reveal">
+                    <div class="text-center">
+                        <i class="fas fa-medal text-4xl text-yellow-400 mb-4"></i>
+                        <h3 class="text-lg font-semibold mb-3 gradient-text">Reconhecimento</h3>
+                        <p class="text-gray-300 text-sm">Premiações por contribuições culturais.</p>
+                    </div>
+                </div>
+
+                <div class="bg-black/50 p-6 rounded-xl magnetic-hover quick-reveal">
+                    <div class="text-center">
+                        <i class="fas fa-heart text-4xl text-yellow-400 mb-4"></i>
+                        <h3 class="text-lg font-semibold mb-3 gradient-text">Impacto Social</h3>
+                        <p class="text-gray-300 text-sm">Uso da plataforma para causas sociais.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section-compact">
+        <div class="container mx-auto px-6">
+            <div class="text-center compact-spacing quick-reveal">
+                <h2 class="font-serif text-4xl md:text-5xl font-bold mb-6">
+                    <span class="gradient-text">Vamos Trabalhar Juntos</span>
+                </h2>
+                <p class="text-lg text-gray-300 max-w-2xl mx-auto">
+                    Entre em contato para discutir projetos e colaborações.
+                </p>
+            </div>
+
+            <div class="max-w-3xl mx-auto">
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="quick-reveal">
+                        <h3 class="text-xl font-semibold mb-6 gradient-text">Contato</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 bg-yellow-400/10 rounded-full flex items-center justify-center">
+                                    <i class="fab fa-instagram text-yellow-400"></i>
+                                </div>
+                                <div>
+                                    <p class="text-white font-medium">Instagram</p>
+                                    <p class="text-gray-400 text-sm">@ayanfemme</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 bg-yellow-400/10 rounded-full flex items-center justify-center">
+                                    <i class="fas fa-envelope text-yellow-400"></i>
+                                </div>
+                                <div>
+                                    <p class="text-white font-medium">Email</p>
+                                    <p class="text-gray-400 text-sm">contato@ayanfemme.com</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 bg-yellow-400/10 rounded-full flex items-center justify-center">
+                                    <i class="fas fa-phone text-yellow-400"></i>
+                                </div>
+                                <div>
+                                    <p class="text-white font-medium">WhatsApp</p>
+                                    <p class="text-gray-400 text-sm">Disponível para projetos</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-6">
+                            <h4 class="text-sm font-medium mb-3 text-white">Áreas de Atuação</h4>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-3 py-1 bg-yellow-400/10 border border-yellow-400/30 rounded-full text-xs text-yellow-400">Modelagem</span>
+                                <span class="px-3 py-1 bg-yellow-400/10 border border-yellow-400/30 rounded-full text-xs text-yellow-400">Atuação</span>
+                                <span class="px-3 py-1 bg-yellow-400/10 border border-yellow-400/30 rounded-full text-xs text-yellow-400">Eventos</span>
+                                <span class="px-3 py-1 bg-yellow-400/10 border border-yellow-400/30 rounded-full text-xs text-yellow-400">Carnaval</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="quick-reveal">
+                        <form class="space-y-4" id="contactForm">
+                            <div>
+                                <label class="block text-white mb-2 text-sm">Nome</label>
+                                <input type="text" class="w-full px-4 py-3 bg-gray-800/50 border border-gray-700 rounded-lg focus:border-yellow-400 focus:outline-none text-white text-sm" required>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-white mb-2 text-sm">Email</label>
+                                <input type="email" class="w-full px-4 py-3 bg-gray-800/50 border border-gray-700 rounded-lg focus:border-yellow-400 focus:outline-none text-white text-sm" required>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-white mb-2 text-sm">Projeto</label>
+                                <select class="w-full px-4 py-3 bg-gray-800/50 border border-gray-700 rounded-lg focus:border-yellow-400 focus:outline-none text-white text-sm">
+                                    <option>Ensaio Fotográfico</option>
+                                    <option>Evento/Desfile</option>
+                                    <option>Campanha Publicitária</option>
+                                    <option>Produção Audiovisual</option>
+                                </select>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-white mb-2 text-sm">Mensagem</label>
+                                <textarea rows="4" class="w-full px-4 py-3 bg-gray-800/50 border border-gray-700 rounded-lg focus:border-yellow-400 focus:outline-none text-white text-sm" placeholder="Conte-nos sobre seu projeto..."></textarea>
+                            </div>
+                            
+                            <button type="submit" class="w-full bg-yellow-400 text-black py-3 rounded-lg hover:bg-yellow-500 transition-colors duration-300 font-medium text-sm">
+                                Enviar Mensagem
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black/50 py-12">
+        <div class="container mx-auto px-6">
+            <div class="text-center quick-reveal">
+                <div class="floating-logo mx-auto mb-6 relative" style="position: static; width: 60px; height: 60px;">
+                    <div class="logo-bg" style="width: 50px; height: 50px;"></div>
+                </div>
+                <p class="text-gray-400 mb-6">
+                    © 2025 Ayan Femme. Onde a arte ganha vida.
+                </p>
+                <div class="flex justify-center space-x-6">
+                    <a href="#" class="group text-gray-400 hover:text-yellow-400 transition-all duration-300 transform hover:scale-110">
+                        <i class="fab fa-instagram text-2xl"></i>
+                    </a>
+                    <a href="#" class="group text-gray-400 hover:text-yellow-400 transition-all duration-300 transform hover:scale-110">
+                        <i class="fab fa-tiktok text-2xl"></i>
+                    </a>
+                    <a href="#" class="group text-gray-400 hover:text-yellow-400 transition-all duration-300 transform hover:scale-110">
+                        <i class="fab fa-youtube text-2xl"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Image Modal -->
+    <div id="imageModal" class="modal">
+        <span class="close">&times;</span>
+        <div class="modal-content">
+            <img id="modalImage" src="" alt="">
+        </div>
+    </div>
+
+    <script>
+        // Wait for DOM to be fully loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM loaded, initializing portfolio...');
+            
+            // Enhanced Carousel functionality
+            let currentSlide = 0;
+            const images = document.querySelectorAll('.carousel-image');
+            const totalSlides = images.length;
+
+            console.log('Found', totalSlides, 'carousel images');
+
+            function showSlide(index) {
+                console.log('Showing slide', index);
+                
+                // Remove active from all images
+                images.forEach((img, i) => {
+                    img.classList.remove('active');
+                });
+                
+                // Add active to current image with fade transition
+                setTimeout(() => {
+                    if (images[index]) {
+                        images[index].classList.add('active');
+                        console.log('Image', index, 'set to active');
+                    }
+                }, 300); // Pequena pausa entre as imagens
+            }
+
+            function nextSlide() {
+                currentSlide = (currentSlide + 1) % totalSlides;
+                showSlide(currentSlide);
+            }
+
+            // Initialize first slide
+            if (totalSlides > 0) {
+                showSlide(0);
+                // Auto-advance carousel every 7 seconds
+                setInterval(nextSlide, 7000);
+            }
+        });
+
+        // Interactive Cursor
+        document.addEventListener('DOMContentLoaded', function() {
+            const cursor = document.getElementById('cursor');
+            let mouseX = 0, mouseY = 0;
+
+            document.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+                cursor.style.left = mouseX + 'px';
+                cursor.style.top = mouseY + 'px';
+            });
+
+            // Cursor interactions
+            const interactiveElements = document.querySelectorAll('button, .gallery-item, .nav-dot, .floating-logo, .carousel-dot');
+            interactiveElements.forEach(el => {
+                el.addEventListener('mouseenter', () => cursor.classList.add('cursor-active'));
+                el.addEventListener('mouseleave', () => cursor.classList.remove('cursor-active'));
+            });
+        });
+
+        // Smooth scrolling functions
+        function scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            updateActiveNav(sectionId);
+        }
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            updateActiveNav('home');
+        }
+
+        // Navigation dot updates
+        function updateActiveNav(activeSection) {
+            console.log('Updating nav for section:', activeSection); // Debug
+            document.querySelectorAll('.nav-dot').forEach(dot => {
+                dot.classList.remove('active');
+            });
+            
+            const sections = ['home', 'about', 'portfolio', 'achievements', 'contact'];
+            const index = sections.indexOf(activeSection);
+            console.log('Section index:', index); // Debug
+            if (index !== -1) {
+                const navDots = document.querySelectorAll('.nav-dot');
+                if (navDots[index]) {
+                    navDots[index].classList.add('active');
+                    console.log('Activated nav dot', index); // Debug
+                }
+            }
+        }
+
+        // Scroll-based navigation updates
+        const observerOptions = {
+            threshold: 0.3,
+            rootMargin: '-10% 0px -10% 0px'
+        };
+
+        const sectionObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const sectionId = entry.target.id;
+                    console.log('Section in view:', sectionId); // Debug
+                    updateActiveNav(sectionId);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section[id]').forEach(section => {
+            sectionObserver.observe(section);
+        });
+
+        // Reveal animations with faster timing
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.2, rootMargin: '0px 0px -30px 0px' });
+
+        // Update selectors for quick-reveal elements
+        document.querySelectorAll('.quick-reveal').forEach(el => {
+            revealObserver.observe(el);
+        });
+
+        // Keep existing reveal-text elements for compatibility
+        document.querySelectorAll('.reveal-text').forEach(el => {
+            revealObserver.observe(el);
+        });
+
+        // Portfolio filter functionality with artistic transitions
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const portfolioItems = document.querySelectorAll('.portfolio-item');
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active from all buttons
+                filterButtons.forEach(btn => {
+                    btn.classList.remove('active');
+                    btn.querySelector('span').style.color = '';
+                    btn.querySelector('div').style.transform = 'scaleX(0)';
+                });
+                
+                // Add active to clicked button
+                button.classList.add('active');
+                button.querySelector('span').style.color = 'black';
+                button.querySelector('div').style.transform = 'scaleX(1)';
+
+                const filter = button.getAttribute('data-filter');
+
+                portfolioItems.forEach((item, index) => {
+                    const shouldShow = filter === 'all' || item.getAttribute('data-category') === filter;
+                    
+                    if (shouldShow) {
+                        setTimeout(() => {
+                            item.style.display = 'block';
+                            item.style.opacity = '0';
+                            item.style.transform = 'translateY(30px) scale(0.8)';
+                            
+                            setTimeout(() => {
+                                item.style.transition = 'all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                                item.style.opacity = '1';
+                                item.style.transform = 'translateY(0) scale(1)';
+                            }, 50);
+                        }, index * 50);
+                    } else {
+                        item.style.transition = 'all 0.4s ease';
+                        item.style.opacity = '0';
+                        item.style.transform = 'translateY(-20px) scale(0.8)';
+                        setTimeout(() => {
+                            item.style.display = 'none';
+                        }, 400);
+                    }
+                });
+            });
+        });
+
+        // Enhanced Image modal functionality
+        const modal = document.getElementById('imageModal');
+        const modalImage = document.getElementById('modalImage');
+        const closeModal = document.getElementsByClassName('close')[0];
+
+        document.querySelectorAll('.gallery-item').forEach(item => {
+            item.addEventListener('click', function() {
+                const img = this.querySelector('img');
+                if (img) {
+                    modal.style.display = 'block';
+                    modalImage.src = img.src;
+                    modalImage.alt = img.alt;
+                    document.body.style.overflow = 'hidden';
+                    
+                    // Add entrance animation
+                    modalImage.style.transform = 'scale(0.8)';
+                    modalImage.style.opacity = '0';
+                    setTimeout(() => {
+                        modalImage.style.transition = 'all 0.4s ease';
+                        modalImage.style.transform = 'scale(1)';
+                        modalImage.style.opacity = '1';
+                    }, 50);
+                }
+            });
+        });
+
+        // Close modal functions
+        function closeImageModal() {
+            modalImage.style.transform = 'scale(0.8)';
+            modalImage.style.opacity = '0';
+            setTimeout(() => {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }, 200);
+        }
+
+        closeModal.addEventListener('click', closeImageModal);
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeImageModal();
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal.style.display === 'block') {
+                closeImageModal();
+            }
+        });
+
+        // Enhanced contact form - only if form exists
+        const contactForm = document.getElementById('contactForm');
+        if (contactForm) {
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const button = this.querySelector('button[type="submit"]');
+                const originalText = button.innerHTML;
+                
+                button.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Enviando...';
+                button.disabled = true;
+                
+                setTimeout(() => {
+                    button.innerHTML = '<i class="fas fa-check mr-2"></i> Enviado!';
+                    button.classList.remove('bg-yellow-400', 'hover:bg-yellow-500');
+                    button.classList.add('bg-green-500');
+                    
+                    setTimeout(() => {
+                        button.innerHTML = originalText;
+                        button.disabled = false;
+                        button.classList.remove('bg-green-500');
+                        button.classList.add('bg-yellow-400', 'hover:bg-yellow-500');
+                        this.reset();
+                    }, 2000);
+                }, 1500);
+            });
+        }
+
+        // Parallax effect for hero background
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const parallaxBg = document.querySelector('.parallax-bg');
+            if (parallaxBg) {
+                parallaxBg.style.transform = `translateY(${scrolled * 0.5}px)`;
+            }
+        });
+
+        // Initialize masonry layout after images load
+        function initializeMasonry() {
+            const images = document.querySelectorAll('.masonry-item img');
+            let loadedImages = 0;
+            
+            images.forEach(img => {
+                if (img.complete) {
+                    loadedImages++;
+                } else {
+                    img.addEventListener('load', () => {
+                        loadedImages++;
+                        if (loadedImages === images.length) {
+                            // All images loaded
+                        }
+                    });
+                }
+            });
+        }
+
+        // Auto-scroll for floating elements
+        setInterval(() => {
+            document.querySelectorAll('.floating-element').forEach((el, index) => {
+                const delay = index * 1000;
+                setTimeout(() => {
+                    el.style.transform = `translateY(${Math.random() * 20 - 10}px) translateX(${Math.random() * 20 - 10}px)`;
+                }, delay);
+            });
+        }, 8000);
+
+        // Initialize on load - moved all initialization here
+        window.addEventListener('load', () => {
+            initializeMasonry();
+            
+            // Set initial active filter
+            const firstFilter = document.querySelector('.filter-btn[data-filter="all"]');
+            if (firstFilter) {
+                firstFilter.querySelector('span').style.color = 'black';
+                firstFilter.querySelector('div').style.transform = 'scaleX(1)';
+            }
+            
+            // Initial reveal for hero section
+            setTimeout(() => {
+                document.querySelectorAll('#home .reveal-text, #home .quick-reveal').forEach(el => {
+                    el.classList.add('visible');
+                });
+            }, 500);
+        });
+    </script>
+</body>
+</html>
